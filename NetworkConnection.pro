@@ -6,9 +6,22 @@
 
 QT       -= core gui
 
-TARGET = NetworkConnection
+arm {
+    message(Configuring for Arm platform...)
+    TARGET = ArmNetworkConnection
+    
+    QMAKE_CC = arm-linux-gnueabi-gcc
+    QMAKE_CXX = arm-linux-gnueabi-g++
+} else {
+    message(Configuring for Current platform...)
+    TARGET = NetworkConnection
+}
+
 TEMPLATE = lib
-CONFIG += staticlib
+CONFIG += staticlib c++14 autogen_precompile_source precompile_header
+
+DESTDIR=lib
+OBJECTS_DIR=objects
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which has been marked as deprecated (the exact warnings
